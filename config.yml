@@ -1,0 +1,13 @@
+# active-data-source: google-colab
+active-data-source: local-windows
+
+model:
+  name: audio_classifier.2025-02-23.h5
+
+data-sources:
+  google-colab:
+    vendor: google-colab
+    dataPath: /content/drive
+  local-windows:
+    vendor: local-drive
+    dataPath: $HOMEDRIVE$HOMEPATH/workspace/Deepfake/data/ASVspoof-2019
