@@ -33,7 +33,7 @@ The project is currently configured to use Anaconda though originally it was cre
 The following commands can be used to save changes to dependencies in the environment:
 * Using Anaconda:
   ```
-  conda env export -n audio-deepfake-detection-v5 > environment.yml
+  conda env export -n audio-deepfake-detection > environment.yml
   ```
 * Using PIP:
   ```
