@@ -319,7 +319,7 @@ import matplotlib.pyplot as plt
 LABELS = ['spoof', 'bonafide']
 
 plt.figure(figsize=(6, 4))
-sns.countplot(x=y_true, palette="Set2", hue=X, legend=False)
+sns.countplot(x=y_true, palette="Set2")
 plt.xticks(ticks=[0, 1], labels=LABELS)
 plt.xlabel('Class')
 plt.ylabel('Count')
