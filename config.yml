@@ -1,8 +1,10 @@
 # active-data-source: google-colab
 active-data-source: local-windows
+active-job: original
 
-model:
-  name: audio_classifier.2025-02-23.h5
+# model:
+#   legacy-name: audio_classifier.2025-02-23.h5
+#   name: audio_classifier.2025-02-23.keras
 
 data-sources:
   google-colab:
@@ -11,3 +13,16 @@ data-sources:
   local-windows:
     vendor: local-drive
     dataPath: $HOMEDRIVE$HOMEPATH/workspace/Deepfake/data/ASVspoof-2019
+
+jobs:
+  original:
+    train-dataset-path: LA/ASVspoof2019_LA_train/flac
+    train-label-file-path: LA/ASVspoof2019_LA_cm_protocols/ASVspoof2019.LA.cm.train.trn.txt
+    num-classes: 2        # Number of classes (bonafide and spoof)
+    test-dataset-path: ./TestEvaluation
+    # model-name: audio_classifier.2025-02-27.keras
+    model-name: audio_classifier.2025-02-27.h5
+    sample-rate: 16000    # Sample rate of your audio files
+    duration: 5           # Duration of audio clips in seconds
+    num-mels: 128         # Number of Mel frequency bins
+    max-time-steps: 109

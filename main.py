@@ -21,6 +21,7 @@ jupytext.write(jupytext.read('./main.ipynb'), 'main.py')
 import MyConfig
     
 config = MyConfig.MyConfig("config.yml")
+print(f"sample rate: {config.sampleRate}")
 
 if (config.vendor == "google-colab"):
     from google.colab import drive
@@ -39,12 +40,12 @@ from tensorflow.keras.utils import to_categorical
 
 # + id="bxvClGw3Pc0B"
 # Define paths and parameters
-DATASET_PATH = "LA/ASVspoof2019_LA_train/flac"
-LABEL_FILE_PATH = "LA/ASVspoof2019_LA_cm_protocols/ASVspoof2019.LA.cm.train.trn.txt"
-NUM_CLASSES = 2  # Number of classes (bonafide and spoof)
-SAMPLE_RATE = 16000  # Sample rate of your audio files
-DURATION = 5  # Duration of audio clips in seconds
-N_MELS = 128  # Number of Mel frequency bins
+DATASET_PATH = config.trainDatasetPath
+LABEL_FILE_PATH = config.trainLabelFilePath
+NUM_CLASSES = config.numClasses
+SAMPLE_RATE = config.sampleRate
+DURATION = config.duration
+N_MELS = config.numMels
 
 readFileName = config.fullPath(LABEL_FILE_PATH)
 
@@ -96,10 +97,17 @@ X,y
 # + id="hiuB3-tKYtaY"
 y_encoded = to_categorical(y, NUM_CLASSES)
 
+
 # + id="Qpd51oPQYzVX"
 split_index = int(0.8 * len(X))
 X_train, X_val = X[:split_index], X[split_index:]
 y_train, y_val = y_encoded[:split_index], y_encoded[split_index:]
+
+print(f"split_index: {split_index}")
+print(f"X_train:     {X_train}")
+print(f"X_val:       {X_val}")
+print(f"y_train:     {y_train}")
+print(f"y_val:       {y_val}")
 
 # + id="GFWARwGbY1pX"
 # Define CNN model architecture
@@ -152,12 +160,12 @@ import MyConfig
 config = MyConfig.MyConfig("config.yml")
 
 # Define paths and parameters
-TEST_DATASET_PATH = "./TestEvaluation"
+TEST_DATASET_PATH = config.testDatasetPath
 MODEL_PATH = config.modelName
-SAMPLE_RATE = 16000
-DURATION = 5
-N_MELS = 128
-MAX_TIME_STEPS = 109
+SAMPLE_RATE = config.sampleRate
+DURATION = config.duration
+N_MELS = config.numMels
+MAX_TIME_STEPS = config.maxTimeSteps
 
 # + id="gSJ-2NRuRpV1"
 # Load the saved model
@@ -311,7 +319,7 @@ import matplotlib.pyplot as plt
 LABELS = ['spoof', 'bonafide']
 
 plt.figure(figsize=(6, 4))
-sns.countplot(x=y_true, palette="Set2")
+sns.countplot(x=y_true, palette="Set2", hue=X, legend=False)
 plt.xticks(ticks=[0, 1], labels=LABELS)
 plt.xlabel('Class')
 plt.ylabel('Count')
